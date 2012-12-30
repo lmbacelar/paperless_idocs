@@ -1,0 +1,12 @@
+= simple_form_for @section, html: {class: 'form-horizontal'} do |f|
+  %fieldset
+    %legend= "#{t("actions.#{controller.action_name.downcase}")} #{Section.model_name.human}"
+    = f.input :name, input_html: { class: 'span5' }
+    = f.input :acronym, input_html: { class: 'span2' }
+    = f.input :parent_id, collection: Section.order(:name), input_html: { class: 'span5' }
+    = f.input :position, input_html: { class: 'span1' }
+    = f.input :content, input_html: { class: 'span7', rows: '8' }
+
+    .form-actions
+      = f.button :submit, class: 'btn-primary'
+      = link_to t('actions.cancel'), sections_path, class: 'btn'

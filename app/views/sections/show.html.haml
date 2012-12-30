@@ -1,0 +1,9 @@
+%p
+  %h2= @section.name
+%p
+  = simple_format @section.content
+
+.form-actions
+  = link_to t('actions.back'), sections_path, class: 'btn'
+  = link_to t('actions.edit'), edit_section_path(@section), class: 'btn'
+  = link_to t('actions.destroy'), @section, confirm: t('actions.confirm'), method: :delete, class: 'btn btn-danger'

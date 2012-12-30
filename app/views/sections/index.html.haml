@@ -1,0 +1,22 @@
+%h1 Listing sections
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= Section.human_attribute_name :name
+      %th= Section.human_attribute_name :acronym
+      %th= Section.human_attribute_name :parent
+      %th= Section.human_attribute_name :position
+      %th= t 'actions.actions'
+  %tbody
+    - @sections.each do |section|
+      %tr
+        %td= link_to section.name, section, rel: 'tooltip', title: t('actions.show')
+        %td= section.acronym
+        %td= section.parent.try(:acronym)
+        %td= section.position
+        %td
+          = link_to t('actions.edit'), edit_section_path(section), class: 'btn btn-mini'
+          = link_to t('actions.destroy'), section, confirm: t('actions.confirm'), method: :delete, class: 'btn btn-mini btn-danger'
+
+= link_to "#{t('actions.new')} #{Section.model_name.human}", new_section_path, class: 'btn btn-primary'
