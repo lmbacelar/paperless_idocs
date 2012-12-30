@@ -1,0 +1,4 @@
+%ul
+  - sections.each do |section, children|
+    %li= link_to_unless_current section.name, section
+    = render 'section_links', sections: children if children.present?

@@ -1,8 +1,43 @@
+// TODO: 
+//   1. Collapse li's
+//   2. Move to partial?
+=content_for :sidebar do
+  %h3= t 'sidebar.table_of_contents'
+  = render 'section_links', sections: @section.root.descendants.arrange(order: :position)
+
+// TODO:
+//   1. Move to partial
+- unless @section.is_root?
+  %ul.breadcrumb
+    - @section.ancestors.each do |section|
+      %li
+        = link_to section.name, section
+        %span.divider &gt;
+
+// TODO:
+//   1. Format header according to depth of node
+//   2. Display Markdown
 %p
   %h2= @section.name
 %p
   = simple_format @section.content
 
+// TODO:
+//   1. Display link to next / previous page
+//     a. flatten arranged, ordered root descendants
+//     b. find this @section.id
+//     c. link to previous/next section
+//   2. Extract to helper
+//   3. Move to partial
+%ul.pager
+  %li= link_to 'Previous', '#'
+  %li= link_to 'Next', '#'
+
+// TODO:
+//   1. Make 'New section before', 'New section after' and 'New child' buttons
+//     a. 'New child' only of it does not have childs
+//   2. Prevent deletion of sections with childs (remove button)
+//   3. Authorize actions with roles
 .form-actions
   = link_to t('actions.back'), sections_path, class: 'btn'
   = link_to t('actions.edit'), edit_section_path(@section), class: 'btn'
